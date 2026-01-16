@@ -1,3 +1,3 @@
-- Nom:
-- Prénom:
+- Nom: Kruger
+- Prénom: Konstance
 - URL vercel: 

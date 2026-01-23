@@ -1,7 +1,39 @@
 ---
 import "../styles/global.css";
 ---
-<nav>
-    <a href="/">Accueil</a>
-    <a href="/offres">Offres</a>
-</nav>
+<header class="header">
+    <nav class="nav-links">
+        <a href="/" class="nav-link">Accueil</a>
+        <a href="/offres" class="nav-link">Offres</a>
+    </nav>
+</header>
+
+<style>
+    .header {
+        background-color: #000000;
+        padding: 1.5rem 0;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-links {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        gap: 2rem;
+        padding: 0 2rem;
+    }
+
+    .nav-link {
+        color: #ecf0f1;
+        text-decoration: none;
+        font-size: 1rem;
+        transition: color 0.3s ease;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+    }
+
+    .nav-link:hover {
+        color: #3498db;
+        background-color: rgba(52, 152, 219, 0.1);
+    }
+</style>

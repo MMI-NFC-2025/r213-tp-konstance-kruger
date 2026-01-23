@@ -1,0 +1,38 @@
+---
+interface Props {
+    adresse: string;
+    favori: boolean;
+    id: string;
+    nbChambres: number;
+    nbSdb: number;
+    nomMaison: string;
+    prix: number;
+    surface: number;
+    imgUrl: string;
+}
+
+const { adresse, favori, id, nbChambres, nbSdb, nomMaison, prix, surface, imgUrl } = Astro.props as Props;
+---
+
+<div class="offre" data-favori={favori.toString()}>
+    <h3>{nomMaison}</h3>
+    <p><strong>Adresse:</strong> {adresse}</p>
+    <p><strong>Prix:</strong> {prix}€</p>
+    <p><strong>Surface:</strong> {surface}m²</p>
+    <p><strong>Chambres:</strong> {nbChambres}</p>
+    <p><strong>Salles de bain:</strong> {nbSdb}</p>
+    <p><strong>Favori:</strong> {favori ? 'Oui' : 'Non'}</p>
+</div>
+
+<style>
+    .offre {
+        border: 1px solid #ccc;
+        padding: 1rem;
+        margin: 1rem 0;
+        border-radius: 8px;
+    }
+    
+    .offre[data-favori="true"] {
+        background-color: #cfcfcf;
+    }
+</style>

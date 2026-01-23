@@ -43,7 +43,7 @@ const offres = [
 <Layout titre="Offres">
     <h1>Offres</h1>
     <button id="favori-button" class="bg-slate-600 rounded-lg text-white p-2">Afficher les favoris</button>
-    <div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 my-8">
         {
             offres.map(offre => (
                 <OffreCard

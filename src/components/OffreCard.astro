@@ -14,25 +14,62 @@ interface Props {
 const { adresse, favori, id, nbChambres, nbSdb, nomMaison, prix, surface, imgUrl } = Astro.props as Props;
 ---
 
-<div class="offre" data-favori={favori.toString()}>
-    <h3>{nomMaison}</h3>
-    <p><strong>Adresse:</strong> {adresse}</p>
-    <p><strong>Prix:</strong> {prix}€</p>
-    <p><strong>Surface:</strong> {surface}m²</p>
-    <p><strong>Chambres:</strong> {nbChambres}</p>
-    <p><strong>Salles de bain:</strong> {nbSdb}</p>
-    <p><strong>Favori:</strong> {favori ? 'Oui' : 'Non'}</p>
+
+<div class="offre" data-favori={favori.toString()} data-id={id}>
+        <h3>{nomMaison}</h3>
+        <p><strong>Adresse:</strong> {adresse}</p>
+        <p><strong>Prix:</strong> {prix}€</p>
+        <p><strong>Surface:</strong> {surface}m²</p>
+        <p><strong>Chambres:</strong> {nbChambres}</p>
+        <p><strong>Salles de bain:</strong> {nbSdb}</p>
+        <p><strong>Favori:</strong> {favori ? 'Oui' : 'Non'}</p>
+        <button class="btn-favori" data-id={id} title={favori ? "Retirer des favoris" : "Ajouter aux favoris"}>
+            {favori ? 'Retirer des favoris' : 'Ajouter aux favoris'}
+        </button>
 </div>
 
 <style>
-    .offre {
-        border: 1px solid #ccc;
-        padding: 1rem;
-        margin: 1rem 0;
-        border-radius: 8px;
-    }
+        .offre {
+                border: 1px solid #ccc;
+                padding: 1rem;
+                margin: 1rem 0;
+                border-radius: 8px;
+                transition: background-color 0.3s ease;
+        }
     
-    .offre[data-favori="true"] {
-        background-color: #cfcfcf;
-    }
+        .offre[data-favori="true"] {
+                background-color: #fff3cd;
+                border-color: #ffc107;
+        }
+
+        .btn-favori {
+                background-color: #007bff;
+                color: white;
+                padding: 0.5rem 1rem;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 0.9rem;
+                transition: background-color 0.3s ease;
+                margin-top: 1rem;
+                width: 100%;
+        }
+
+        .btn-favori:hover {
+                background-color: #0056b3;
+        }
 </style>
+
+<script define:vars={{ id }}>
+        const button = document.querySelector(`[data-id="${id}"] .btn-favori`);
+        const card = document.querySelector(`[data-id="${id}"].offre`);
+
+        button?.addEventListener('click', () => {
+                const isFavori = card?.dataset.favori === 'true';
+                const newFavori = !isFavori;
+
+                card?.setAttribute('data-favori', newFavori.toString());
+                button.textContent = newFavori ? 'Retirer des favoris' : 'Ajouter aux favoris';
+                button.title = newFavori ? 'Retirer des favoris' : 'Ajouter aux favoris';
+        });
+</script>

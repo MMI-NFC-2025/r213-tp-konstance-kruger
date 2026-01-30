@@ -1,39 +1,20 @@
 ---
 import "../styles/global.css";
 ---
-<header class="header">
-    <nav class="nav-links">
-        <a href="/" class="nav-link">Accueil</a>
-        <a href="/offres" class="nav-link">Offres</a>
+<header class="bg-blue-700 shadow-lg top-0 z-50">
+    <nav class="max-w-7xl mx-auto px-6 py-5 flex items-center gap-1">
+        <a 
+            href="/" 
+            class="text-white px-6 py-2 rounded-lg font-medium transition-all duration-300 hover:bg-white hover:text-blue-700 hover:shadow-md"
+        >
+            Accueil
+        </a>
+        <a 
+            href="/offres" 
+            class="text-white px-6 py-2 rounded-lg font-medium transition-all duration-300 hover:bg-white hover:text-blue-700 hover:shadow-md"
+        >
+            Offres
+        </a>
     </nav>
 </header>
 
-<style>
-    .header {
-        background-color: #000000;
-        padding: 1.5rem 0;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .nav-links {
-        max-width: 1200px;
-        margin: 0 auto;
-        display: flex;
-        gap: 2rem;
-        padding: 0 2rem;
-    }
-
-    .nav-link {
-        color: #ecf0f1;
-        text-decoration: none;
-        font-size: 1rem;
-        transition: color 0.3s ease;
-        padding: 0.5rem 1rem;
-        border-radius: 4px;
-    }
-
-    .nav-link:hover {
-        color: #3498db;
-        background-color: rgba(52, 152, 219, 0.1);
-    }
-</style>

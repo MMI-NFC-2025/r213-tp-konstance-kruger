@@ -1,75 +1,25 @@
 ---
-interface Props {
-    adresse: string;
-    favori: boolean;
-    id: string;
-    nbChambres: number;
-    nbSdb: number;
-    nomMaison: string;
-    prix: number;
-    surface: number;
-    imgUrl: string;
-}
 
-const { adresse, favori, id, nbChambres, nbSdb, nomMaison, prix, surface, imgUrl } = Astro.props as Props;
+const offre  = Astro.props.offre;
+console.log(offre);
+import PbImage from "../pages/PbImage.astro";
 ---
 
-
-<div class="offre" data-favori={favori.toString()} data-id={id}>
-        <h3>{nomMaison}</h3>
-        <p><strong>Adresse:</strong> {adresse}</p>
-        <p><strong>Prix:</strong> {prix}€</p>
-        <p><strong>Surface:</strong> {surface}m²</p>
-        <p><strong>Chambres:</strong> {nbChambres}</p>
-        <p><strong>Salles de bain:</strong> {nbSdb}</p>
-        <p><strong>Favori:</strong> {favori ? 'Oui' : 'Non'}</p>
-        <button class="btn-favori" data-id={id} title={favori ? "Retirer des favoris" : "Ajouter aux favoris"}>
-            {favori ? 'Retirer des favoris' : 'Ajouter aux favoris'}
-        </button>
+<div 
+  class={[
+    "bg-white rounded-lg shadow-md p-6",
+    offre.favori ? "border-l-4 border-white-400" : "border-l-4 border-gray-200"
+  ].join(" ")}
+  data-id={offre.id}
+  data-favori={offre.toString()}
+>
+<PbImage record={offre} recordImage={offre.images[0]} />
+  <h3 class="text-lg font-semibold text-gray-900 mb-3">{offre.nom_maison}</h3>
+  <button 
+    class="btn-favori bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md font-medium text-sm" 
+    data-id={offre.id}
+  >
+    {offre.favori ? 'Favori' : 'Ajouter'}
+  </button>
 </div>
 
-<style>
-        .offre {
-                border: 1px solid #ccc;
-                padding: 1rem;
-                margin: 1rem 0;
-                border-radius: 8px;
-                transition: background-color 0.3s ease;
-        }
-    
-        .offre[data-favori="true"] {
-                background-color: #fff3cd;
-                border-color: #ffc107;
-        }
-
-        .btn-favori {
-                background-color: #007bff;
-                color: white;
-                padding: 0.5rem 1rem;
-                border: none;
-                border-radius: 4px;
-                cursor: pointer;
-                font-size: 0.9rem;
-                transition: background-color 0.3s ease;
-                margin-top: 1rem;
-                width: 100%;
-        }
-
-        .btn-favori:hover {
-                background-color: #0056b3;
-        }
-</style>
-
-<script define:vars={{ id }}>
-        const button = document.querySelector(`[data-id="${id}"] .btn-favori`);
-        const card = document.querySelector(`[data-id="${id}"].offre`);
-
-        button?.addEventListener('click', () => {
-                const isFavori = card?.dataset.favori === 'true';
-                const newFavori = !isFavori;
-
-                card?.setAttribute('data-favori', newFavori.toString());
-                button.textContent = newFavori ? 'Retirer des favoris' : 'Ajouter aux favoris';
-                button.title = newFavori ? 'Retirer des favoris' : 'Ajouter aux favoris';
-        });
-</script>

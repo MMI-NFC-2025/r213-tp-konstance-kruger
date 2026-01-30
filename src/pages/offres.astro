@@ -4,49 +4,21 @@ import OffreCard from '../components/OffreCard.astro';
 import { getOffres } from '../backend.mjs';
 
 const offres = await getOffres();
+console.log(
+ offres
+);
+
 ---
 
 <Layout titre="Offres">
-    <h1>Offres</h1>
-    <button id="favori-button" class="bg-slate-600 rounded-lg text-white p-2">Afficher les favoris</button>
+    <button id="favori-button" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg">Afficher les favoris</button>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 my-8">
         {
             offres.map(offre => (
                 <OffreCard
-                    adresse={offre.adresse}
-                    favori={offre.favori}
-                    id={offre.id}
-                    nbChambres={offre.nbChambres}
-                    nbSdb={offre.nbSdb}
-                    nomMaison={offre.nomMaison}
-                    prix={offre.prix}
-                    surface={offre.surface}
-                    imgUrl={offre.imgUrl}
+                    offre={offre}
                 />
             ))
         }
     </div>
 </Layout>
-
-<script>
-    const button = document.getElementById('favori-button') as HTMLButtonElement;
-    let showOnlyFavorites = false;
-    
-    button?.addEventListener('click', () => {
-        showOnlyFavorites = !showOnlyFavorites;
-        const offres = document.querySelectorAll('.offre');
-        
-        offres.forEach((offre) => {
-            const offreElement = offre as HTMLElement;
-            const isFavori = offreElement.dataset.favori === 'true';
-            
-            if (showOnlyFavorites) {
-                offreElement.style.display = isFavori ? 'block' : 'none';
-                button.textContent = 'Afficher tout';
-            } else {
-                offreElement.style.display = 'block';
-                button.textContent = 'Afficher les favoris';
-            }
-        });
-    });
-</script>

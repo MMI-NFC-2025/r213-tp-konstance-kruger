@@ -10,4 +10,6 @@ import PbImage from "./PbImage.astro";
     <p>{offre.nom_maison}</p>
 
     {offre.favori && <span class="favori">★ Favori</span>}
+    <a href={`/offres/${offre.id}`}>Voir plus</a>
+
 </div>

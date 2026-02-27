@@ -1,8 +1,9 @@
 ---
-import { getImageUrl } from '..//backend.mjs';
+import { getImageUrl } from '../js/backend.mjs';
 import { Image } from "astro:assets";
 
-const { record, recordImage, width = 400, height = 300 } = Astro.props;
+const { record, recordImage } = Astro.props;
+console.log('recordImage:', recordImage);
 
 const imageURL = await getImageUrl(record, recordImage);
 ---
@@ -14,3 +15,4 @@ const imageURL = await getImageUrl(record, recordImage);
         inferSize={true}
     />
 }
+

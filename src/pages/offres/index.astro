@@ -8,6 +8,24 @@ console.log(
  offres
 );
 
+let message = '';
+if (Astro.request.method === "POST") {
+    const data = await Astro.request.formData();
+    const minPrix = parseInt(data.get("325000"));
+    const maxPrix = parseInt(data.get("1000000"));
+
+    if (minPrix > 0 && maxPrix > 0 && maxPrix > minPrix) {
+        Offres = await filterByPrix(minPrix, maxPrix);
+        if (Offres.length === 0) {
+            message = `Pas d'offres entre ${minPrix}€ et ${maxPrix}€`;
+        } else {
+            message = `Liste des offres entre ${minPrix}€ et ${maxPrix}€`;
+        }
+    } else {
+        message = "Veuillez entrer des valeurs valides pour le prix.";
+    }
+} else {
+}
 ---
 
 <Layout titre="Offres">
@@ -22,3 +40,4 @@ console.log(
         }
     </div>
 </Layout>
+

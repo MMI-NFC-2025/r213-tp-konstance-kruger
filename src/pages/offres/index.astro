@@ -1,9 +1,9 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import OffreCard from '../../components/OffreCard.astro';
-import { getOffres } from '../../js/backend.mjs';
+import { getOffres, filterByPrix } from '../../js/backend.mjs';
 
-const offres = await getOffres();
+let offres = await getOffres();
 console.log(
  offres
 );
@@ -11,12 +11,12 @@ console.log(
 let message = '';
 if (Astro.request.method === "POST") {
     const data = await Astro.request.formData();
-    const minPrix = parseInt(data.get("325000"));
-    const maxPrix = parseInt(data.get("1000000"));
+    const minPrix = parseInt(data.get("325000") as string);
+    const maxPrix = parseInt(data.get("1000000") as string);
 
     if (minPrix > 0 && maxPrix > 0 && maxPrix > minPrix) {
-        Offres = await filterByPrix(minPrix, maxPrix);
-        if (Offres.length === 0) {
+        offres = await filterByPrix(minPrix, maxPrix);
+        if (offres.length === 0) {
             message = `Pas d'offres entre ${minPrix}€ et ${maxPrix}€`;
         } else {
             message = `Liste des offres entre ${minPrix}€ et ${maxPrix}€`;

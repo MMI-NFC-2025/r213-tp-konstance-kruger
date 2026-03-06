@@ -1,0 +1,46 @@
+---
+import { getAgent, getOffresByAgent } from "../../js/backend.mjs";
+import Layout from "../../layouts/Layout.astro";
+import OffreCard from "../../components/OffreCard.astro";
+import "../../styles/global.css";
+
+const { id } = Astro.params;
+const agent = await getAgent(id);
+const offres = await getOffresByAgent(id);
+---
+
+<Layout titre={agent.nom}>
+    <h1>{agent.nom}</h1>
+
+    <p>{agent.description || ""}</p>
+    {
+        agent.email && (
+            <p>
+                Email: <a href={`mailto:${agent.email}`}>{agent.email}</a>
+            </p>
+        )
+    }
+    {agent.telephone && <p>Téléphone: {agent.telephone}</p>}
+
+    <h2>Offres de {agent.nom}</h2>
+    {
+        offres.length > 0 ? (
+            <div id="offres-container">
+                {offres.map((offre) => (
+                    <a href={`/offres/${offre.id}`} class="block">
+                        <OffreCard offre={offre} />
+                    </a>
+                ))}
+            </div>
+        ) : (
+            <p>Aucune offre disponible pour cet agent.</p>
+        )
+    }
+
+    <a
+        href="/agents"
+        class="mt-4 inline-block bg-slate-600 text-white p-2 rounded-lg"
+    >
+        Retour à la liste des agents
+    </a>
+</Layout>

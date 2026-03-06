@@ -1,0 +1,22 @@
+---
+import "../../styles/global.css";
+import Layout from "../../layouts/Layout.astro";
+import AgentCard from "../../components/AgentCard.astro";
+import { getAgents } from "../../js/backend.mjs";
+
+const agents = await getAgents();
+---
+
+<Layout titre="Agents">
+    <h1>Agents</h1>
+
+    <div id="offres-container">
+        {
+            agents.map((agent) => (
+                <a href={`/agent/${agent.id}`} class="block">
+                    <AgentCard agent={agent} />
+                </a>
+            ))
+        }
+    </div>
+</Layout>

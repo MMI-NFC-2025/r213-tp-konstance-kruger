@@ -1,13 +1,14 @@
 ---
-
 const offre  = Astro.props.offre;
 console.log(offre);
 import PbImage from "./PbImage.astro";
+import { setFavori } from "../js/backend.mjs";
+
 ---
 
 <div 
   class={[
-    "bg-white rounded-lg shadow-md p-6",
+    "relative bg-white rounded-lg shadow-md p-6",
     offre.favori ? "border-l-4 border-white-400" : "border-l-4 border-gray-200"
   ].join(" ")}
   data-id={offre.id}
@@ -21,5 +22,38 @@ import PbImage from "./PbImage.astro";
   >
     {offre.favori ? 'Favori' : 'Ajouter'}
   </button>
+  <button 
+    class="favoriteButton absolute bottom-0 left-0 p-2 text-white rounded-br-lg" 
+    data-offre={JSON.stringify(offre)}
+  >
+    <img 
+      id="favorite-icon" 
+      src={offre.favori ? "favorite_filled.png" : "favorite.png"} 
+      alt="Favorite Icon" 
+      class="w-6 h-6" 
+    />
+  </button>
 </div>
+
+<script>
+  //@ts-nocheck
+  import { setFavori } from "../js/backend.mjs";
+  const favoriteButtons = document.querySelectorAll(".favoriteButton");
+
+  favoriteButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const offreData = JSON.parse(button.dataset.offre || '{}');
+      const newFavori = !offreData.favori;
+
+      setFavori(offreData);
+
+      const favIcon = button.querySelector('#favorite-icon');
+      if (favIcon) {
+        favIcon.src = newFavori ? "/favorite_filled.png" : "/favorite.png";
+      }
+      offreData.favori = newFavori;
+      button.dataset.offre = JSON.stringify(offreData);
+    });
+  });
+</script>
 
